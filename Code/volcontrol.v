@@ -99,49 +99,36 @@ module testbench;
     
     always
         begin
-          #4 $display("Input from ADC = %d, Input from SDC = %d, Output = %d", in_adc, in_sdc, out_vol);
+          #5 $display("Input from ADC = %d, Input from SDC = %d, Output = %d", in_adc, in_sdc, out_vol);
         end
 
     initial
         begin
-            in_adc = 316;
-            in_sdc = 16'h1000;
+            in_adc = 316; in_sdc = 16'h1000; //0001
             #5
-            in_adc = 631;
-            in_sdc = 16'h1000;
+            in_adc = 631; in_sdc = 16'h1000; //0010
             #5
-            in_adc = 946;
-            in_sdc = 16'h1000;
+            in_adc = 946; in_sdc = 16'h1000; //0011
             #5
-            in_adc = 1261;
-            in_sdc = 16'h1000;
+            in_adc = 1261; in_sdc = 16'h1000; //0100
             #5
-            in_adc = 1576;
-            in_sdc = 16'h1000;
+            in_adc = 1576; in_sdc = 16'h1000; //0110
             #5
-            in_adc = 1891;
-            in_sdc = 16'h1000;
+            in_adc = 1891; in_sdc = 16'h1000; //0111
             #5
-            in_adc = 2206;
-            in_sdc = 16'h1000;
+            in_adc = 2206; in_sdc = 16'h1000; //1000
             #5
-            in_adc = 2521;
-            in_sdc = 16'h1000;
+            in_adc = 2521; in_sdc = 16'h1000; //1001
             #5
-            in_adc = 2836;
-            in_sdc = 16'h1000;
+            in_adc = 2836; in_sdc = 16'h1000; //1011
             #5
-            in_adc = 3150;
-            in_sdc = 16'h1000;
+            in_adc = 3150; in_sdc = 16'h1000; //1100
             #5
-            in_adc = 3466;
-            in_sdc = 16'h1000;
+            in_adc = 3466; in_sdc = 16'h1000; //1101
             #5
-            in_adc = 3781;
-            in_sdc = 16'h1000;
+            in_adc = 3781; in_sdc = 16'h1000; //1110
             #5
-            in_adc = 4095;
-            in_sdc = 16'h1000;
+            in_adc = 4095; in_sdc = 16'h1000; //1111
             #5
             $finish;
         end
