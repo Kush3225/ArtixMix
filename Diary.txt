@@ -1,0 +1,8 @@
+Hello All !
+So today (06-08-2026) I have officially started with the project - FPGA based DJ System
+
+This file is Diary of my Journey through this Project which I consider a major one but Claude doesn't lol. 
+
+//06-08-2026
+
+8:09 pm - Started with the project - decided the scope (features), FPGA board
