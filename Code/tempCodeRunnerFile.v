@@ -6,7 +6,7 @@ module top_module (
     output [15:0]out_vol
 );
 
-    wire[3:0]out_adc;
+    wre[3:0]out_adc;
 
     ADC_reducer A1(.in(in_ADC), .out(out_adc));
     vol_control Vol(.in(in_SDC), .control(out_adc), .out(out_vol));
@@ -71,7 +71,7 @@ module vol_control (
             DB_Pos5 : gain = 16'hE39F;
             DB_Pos6 : gain = 16'hFF66;
 
-            default: gain = 16'h8000;
+            default: gain = 16'h8000;;
         endcase
 
         temp = $signed(in) * $signed({1'b0, gain});
@@ -85,21 +85,22 @@ endmodule
 
 module testbench;
 
-    reg [11:0]in_adc;
-    reg [15:0]in_sdc;
-    wire [15:0]out_vol;
+    reg in1_adc;
+    reg in_sdc;
+    wire out_vol;
 
-    top_module uut(.in_ADC(in_adc), .in_SDC(in_sdc), .out_vol(out_vol));
+    top_module uut(.in_ADC(in1_adc), .in_SDC(in_sdc), .out_vol(.out_vol));
 
     initial 
         begin
             in_adc = 0; 
             in_sdc = 0;
+            out_vol = 0;
         end
     
     always
         begin
-          #4 $display("Input from ADC = %d, Input from SDC = %d, Output = %d", in_adc, in_sdc, out_vol);
+            $display("Input from ADC = %d, Input from SDC = %d, Output = %d", in_adc, in_sdc, out_vol);
         end
 
     initial
@@ -143,7 +144,7 @@ module testbench;
             in_adc = 4095;
             in_sdc = 16'h1000;
             #5
-            $finish;
+
         end
 
 
