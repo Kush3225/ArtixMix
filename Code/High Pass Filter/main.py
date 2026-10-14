@@ -95,7 +95,7 @@ ax[2, 3].semilogx(freqvector[1: int(Fs/2)], impulse_response["errorf"][1:int(Fs/
 for a in ax.flat:
     a.set_title(textwrap.fill(a.get_title(), width=28), fontsize=9)
 
-fig.suptitle("DSP Biquad Filter — Complete Analysis", fontsize=14)
+fig.suptitle("DSP Biquad High Pass Filter — Complete Analysis", fontsize=14)
 plt.show() 
 
 os.remove('hpf')
