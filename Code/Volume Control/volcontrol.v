@@ -3,13 +3,15 @@
 module top_module (
     input [11:0]in_ADC,
     input [15:0]in_SDC,
-    output [15:0]out_vol
+    output [23:0]out_vol // Given to EQ
 );
 
     wire[3:0]out_adc;
+    wire [23:0]out_more_bits;
 
+    bitdepth_increase B1(.in(in_SDC), .out(out_more_bits));
     ADC_reducer A1(.in(in_ADC), .out(out_adc));
-    vol_control Vol(.in(in_SDC), .control(out_adc), .out(out_vol));
+    vol_control Vol(.in(out_more_bits), .control(out_adc), .out(out_vol));
     
 endmodule
 
@@ -26,12 +28,12 @@ endmodule
 
 
 module vol_control (
-    input [15:0]in, //input from SD Card
+    input [23:0]in, //input from SD Card after widening
     input [3:0]control, //input from ADC_reducer
-    output [15:0]out
+    output [23:0]out
 );
 
-    reg [31:0]temp;
+    reg [39:0]temp;
     reg [15:0]gain;
 
     parameter  vol_0 =  4'b0000;
@@ -74,11 +76,11 @@ module vol_control (
             default: gain = 16'h8000;
         endcase
 
-        temp = $signed(in) * $signed({1'b0, gain});
+        temp = in * gain;
 
     end
 
-    assign out = temp[30:15];
+    assign out = temp[38:15];
     
 endmodule
 
@@ -87,7 +89,7 @@ module testbench;
 
     reg [11:0]in_adc;
     reg [15:0]in_sdc;
-    wire [15:0]out_vol;
+    wire [23:0]out_vol;
 
     top_module uut(.in_ADC(in_adc), .in_SDC(in_sdc), .out_vol(out_vol));
 
@@ -99,7 +101,7 @@ module testbench;
     
     always
         begin
-          #5 $display("Input from ADC = %d, Input from SDC = %d, Output = %d", in_adc, in_sdc, out_vol);
+          #5 $display("Input from ADC = %d, Input from SDC = %d, Output = %d", in_adc, {in_sdc, 8'b0}, out_vol);
         end
 
     initial
